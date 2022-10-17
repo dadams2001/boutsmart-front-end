@@ -1,19 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 function App() {
   const [flaskGreeting, setFlaskGreeting] = useState("");
 
   useEffect(()=>{
-    console.log(process.env.REACT_APP_API_URL + "/hello");
     try {
-      fetch(process.env.REACT_APP_API_URL + "/hello").then((res)=>{
-        res.json().then((data) => {
-          console.log(data)
-          // setFlaskGreeting(data)
-        })
-      });
+      axios({
+        method: "GET",
+        url: process.env.REACT_APP_API_URL
+      }).then((response)=>{
+        const res=response.data
+      setFlaskGreeting(res.flaskMessage);
+      })
     } catch (err) {
       console.log(err);
     }
@@ -25,8 +26,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
          Hello from react!
-        </p>
-        <p>
+         <br/>
           {flaskGreeting}
         </p>
         <a
