@@ -1,0 +1,22 @@
+.merchCard {
+    border: 1px solid aqua;
+    font-size: 1rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 20px;
+    height: 100px;
+    margin: 15px 0;
+}
+
+.merchCard-subcontainer {
+    width: 60%;
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+#ashley {
+    height: 100%;
+}
