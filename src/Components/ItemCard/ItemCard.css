@@ -15,8 +15,19 @@
     margin-left: 40px;
     display: flex;
     flex-direction: column;
+    font-size: 0.75em;
 }
 
+.subcontainer-row {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+.subcontainer-row * {
+    display: flex;
+    flex-direction: row;
+    margin: 2px 5px;
+}
 #ashley {
     height: 100%;
 }
