@@ -7,6 +7,8 @@ const MerchDashboard = () => {
     const [merchList, setMerchList] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [filteredList, setFilteredList] = useState([]);
+    const [filterBoolList, setFilterBoolList] = useState([false, false, false, false, false, false, false, false, false, false]);
+    const [filterNameList, setFilterNameList] = useState(["mens", "womens", "accessories", "leggings", "shirts", "outerwear", "sports bras", "shorts", "sweatpants", "sweatshirt"]);
 
     useEffect(()=>{
         try {
@@ -24,19 +26,56 @@ const MerchDashboard = () => {
 
     const searchMerch = (input) => {
         setFilteredList(searchList(merchList, input));
-    }
+    };
 
     const updateSearchValue = (e) => {
         e.preventDefault();
         console.log(e.target.value);
         searchMerch(e.target.value);
-    }
+    };
+
+    const updateFilterBoolList = (input) => {
+        setFilterBoolList(filterBoolList.map((filter, index) => {
+            if (index === input) {
+              // Create a *new* item with changes
+                return !filter;
+            } else {
+              // No changes
+              return filter;
+            }
+        }));
+    };
     
     return(
         <div className="dash-container">
             <h1>Here's our merch bro</h1>
             <div className='sub-container'>
-                {/* <div className='container-row'>Filters: <button>Men's</button><button>Women's</button></div> */}
+                 <div className='container-row'>
+                    {filterNameList.map((name, index) =>{
+                        return(
+                            <div>
+                            {(filterBoolList[index] === true)
+                                ?   <button 
+                                        key={index} 
+                                        style={{"margin":"5px", "background-color":"aqua"}}
+                                        onClick={()=>updateFilterBoolList(index)}
+                                    >
+                                        {name}
+                                    </button>
+                                :
+                                    <button 
+                                        key={index} 
+                                        style={{"margin":"5px"}}
+                                        onClick={()=>updateFilterBoolList(index)}
+                                    >
+                                        {name}
+                                    </button>
+                            }
+                            </div>
+                        );
+
+                    })}
+                 </div>
                 <input placeholder='Search...' onChange={(e) => updateSearchValue(e)}></input>
                 {(loaded) ?
                     <ul>
