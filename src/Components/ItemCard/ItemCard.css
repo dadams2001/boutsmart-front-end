@@ -28,6 +28,24 @@
     flex-direction: row;
     margin: 2px 5px;
 }
+.modal-container {
+    width: 60%;
+    margin: 0 20%;
+}
+
+.modal-container * {
+    margin: 10px;
+}
+
+
+input {
+    color: black;
+    background: none;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 100%
+}
 #ashley {
     height: 100%;
 }
