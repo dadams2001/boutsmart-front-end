@@ -95,7 +95,7 @@ const MerchDashboard = () => {
 
                     })}
                  </div>
-                <input placeholder='Search...' onChange={(e) => updateSearchValue(e)}></input>
+                <input id="search-bar" placeholder='Search...' onChange={(e) => updateSearchValue(e)}></input>
                 {(loaded) ?
                     <ul>
                         {/* merch[0]:  ITEM_ID, merch[1]: SIZE, merch[2]: CATEGORY, merch[3]: PRICE, merch[4]: SUB_CATEGORY, merch[5]: DISCONTINUED, 
