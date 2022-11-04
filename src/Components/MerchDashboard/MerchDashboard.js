@@ -1,14 +1,16 @@
 import './MerchDashboard.css';
 import { useState, useEffect } from 'react';
 import { searchList } from '../../Common/Services/FilterServices';
+import { filterList } from '../../Common/Services/FilterServices';
 import ItemCard from '../ItemCard/ItemCard';
 
 const MerchDashboard = () => {
     const [merchList, setMerchList] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [filteredList, setFilteredList] = useState([]);
-    const [filterBoolList, setFilterBoolList] = useState([false, false, false, false, false, false, false, false, false, false]);
-    const [filterNameList, setFilterNameList] = useState(["mens", "womens", "accessories", "leggings", "shirts", "outerwear", "sports bras", "shorts", "sweatpants", "sweatshirt"]);
+    const [filterBoolList, setFilterBoolList] = useState([false, false, false, false, false, false, false, false]);
+    const [filterNameList] = useState(["accessories", "leggings", "shirts", "outerwear", "sports bras", "shorts", "sweatpants", "sweatshirt"]);
+    const [trueFilters, setTrueFilters] = useState([]);
 
     useEffect(()=>{
         try {
@@ -30,14 +32,31 @@ const MerchDashboard = () => {
 
     const updateSearchValue = (e) => {
         e.preventDefault();
-        console.log(e.target.value);
         searchMerch(e.target.value);
     };
 
-    const updateFilterBoolList = (input) => {
+    const filterItemsFunc = (input, merchList) => {
+        updateFilterBoolList(input)
+            .then(()=>filterList(trueFilters, merchList))
+            .then((list)=>setFilteredList(list))
+            .then(()=>setLoaded(true));
+    }
+
+    const updateFilterBoolList = async (input) => {
         setFilterBoolList(filterBoolList.map((filter, index) => {
+            // Locate correct filterBool
             if (index === input) {
-              // Create a *new* item with changes
+                if (!filter) {
+                    // Add to true filters
+                    console.log(filterNameList[index]);
+                    setTrueFilters([
+                        ...trueFilters,filterNameList[index]
+                    ])
+                } else {
+                    // Remove from true filters
+                    setTrueFilters(trueFilters.filter(filter => filter !== filterNameList[input]));
+                    
+                }
                 return !filter;
             } else {
               // No changes
@@ -57,8 +76,8 @@ const MerchDashboard = () => {
                             {(filterBoolList[index] === true)
                                 ?   <button 
                                         key={index} 
-                                        style={{"margin":"5px", "background-color":"aqua"}}
-                                        onClick={()=>updateFilterBoolList(index)}
+                                        style={{"margin":"5px", "backgroundColor":"aqua"}}
+                                        onClick={()=>filterItemsFunc(index, merchList)}
                                     >
                                         {name}
                                     </button>
@@ -66,7 +85,7 @@ const MerchDashboard = () => {
                                     <button 
                                         key={index} 
                                         style={{"margin":"5px"}}
-                                        onClick={()=>updateFilterBoolList(index)}
+                                        onClick={()=>filterItemsFunc(index, merchList)}
                                     >
                                         {name}
                                     </button>

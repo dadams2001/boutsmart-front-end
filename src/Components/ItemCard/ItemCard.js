@@ -2,6 +2,7 @@ import './ItemCard.css';
 import ashley from './ashley.png';
 import { useState } from 'react';
 import Modal from "react-modal";
+import { createSale } from '../../Common/Services/SaleServices';
 
 const ItemCard = ({merch, index}) => {
     const [showSaleModal, setShowSaleModal] = useState(false);
@@ -19,6 +20,29 @@ const ItemCard = ({merch, index}) => {
         },
       };
 
+      const sendSale = (prod_id, size, price, quantity, quantity_avail) => {
+        if (quantity > quantity_avail) {
+            alert(`We only have ${quantity_avail} in stock!`)
+        } else {
+            createSale(prod_id, size, price, quantity);
+            setShowSaleModal(false);
+        }
+      };
+
+    /* 
+    merch[0]:  ITEM_ID, 
+    merch[1]: SIZE, 
+    merch[2]: CATEGORY, 
+    merch[3]: PRICE, 
+    merch[4]: SUB_CATEGORY, 
+    merch[5]: DISCONTINUED, 
+    merch[6]: COLOR, 
+    merch[7]: GENDER, 
+    merch[8]: QUANTITY, 
+    merch[9]: BOX, 
+    merch[10]: SHELF, 
+    merch[11]: LOCATION */
+
     return(
         <li className="merchCard" key={index}>
             <Modal
@@ -30,9 +54,9 @@ const ItemCard = ({merch, index}) => {
             >
                 <div className='modal-container'>
                     <h1>Add Sale</h1>
-                        <p>{merch[0]} {merch[4]} {merch[7]} {merch[1]}</p>
+                        <p>{merch[0]} {merch[4]} {merch[7]} {merch[1]} ${merch[3]}</p>
                         <input type="test" placeholder="Quantity..." onChange={(e)=>setQuantity(e.target.value)}/>
-                    <button onClick={()=>setShowSaleModal(false)}>Confirm Sale</button>
+                    <button onClick={()=>sendSale(merch[0], merch[1], merch[3], quantity, merch[8])}>Confirm Sale</button>
                     <button onClick={()=>setShowSaleModal(false)}>Cancel</button>
                 </div>
             </Modal>
