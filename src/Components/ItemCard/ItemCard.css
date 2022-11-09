@@ -6,7 +6,7 @@
     flex-direction: row;
     width: 100%;
     padding: 20px;
-    height: 100px;
+    height: 200px;
     margin: 15px 0;
 }
 
@@ -45,7 +45,4 @@ input {
     border: 2px solid black;
     border-radius: 20px;
     width: 100%
-}
-#ashley {
-    height: 100%;
 }
