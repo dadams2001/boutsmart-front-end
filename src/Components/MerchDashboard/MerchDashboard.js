@@ -55,6 +55,12 @@ const MerchDashboard = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const list = filterList(trueFilters, merchList);
+    setFilteredList(list);
+    setLoaded(true);
+  }, [filterBoolList]);
+
   const searchMerch = (input) => {
     setFilteredList(searchList(merchList, input));
   };
@@ -65,14 +71,25 @@ const MerchDashboard = () => {
   };
 
   const filterItemsFunc = (input, merchList) => {
-    updateFilterBoolList(input)
-      .then(() => filterList(trueFilters, merchList))
-      .then((list) => setFilteredList(list))
-      .then(() => setLoaded(true));
+    updateFilterBoolList(input);
   };
 
-  const updateFilterBoolList = async (input) => {
-    setFilterBoolList(
+  const updateFilterBoolList = async (index) => {
+    var filterBoolListCopy = JSON.parse(
+      JSON.stringify(filterBoolList)
+    );
+    filterBoolListCopy[index] = !filterBoolListCopy[index];
+    setTrueFilters(
+      filterBoolListCopy.reduce(
+        (out, bool, index) =>
+          bool ? out.concat(filterNameList[index]) : out,
+        []
+      )
+    );
+    setFilterBoolList(filterBoolListCopy);
+
+    // ! Below is a moument to your failures <3
+    /*setFilterBoolList(
       filterBoolList.map((filter, index) => {
         // Locate correct filterBool
         if (index === input) {
@@ -94,7 +111,7 @@ const MerchDashboard = () => {
           return filter;
         }
       })
-    );
+    );*/
   };
 
   return (
