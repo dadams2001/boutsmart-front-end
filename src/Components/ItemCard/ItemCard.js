@@ -75,7 +75,7 @@ const ItemCard = ({merch, index}) => {
                     <button onClick={()=>setShowRestockModal(false)}>Cancel</button>
                 </div>
             </Modal>
-            <img id="ashley" src={ashley} alt="idk"/>
+            <img src={`${process.env.REACT_APP_API_URL}/static/merchPics/${merch[0]}.png`} alt="idk"/>
             {/* <img id="ashley" src={process.env.REACT_APP_API_URL + 'pics/' + merch[0]} alt="idk"/> 
             {console.log(process.env.REACT_APP_API_URL + 'pics/' + merch[0])} */}
             <div className='merchCard-subcontainer'>
