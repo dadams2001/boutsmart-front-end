@@ -10,13 +10,18 @@ export const searchList = (input_list, input_string) => {
 };
 
 export const filterList = (filterList, ogList) => {
-  var return_list = ogList.filter((item) => {
-    var isSelected = false;
-    filterList.forEach((category) => {
-      isSelected = isSelected || category.toUpperCase() === item[2];
+  var return_list;
+  if (filterList.length === 0) {
+    return_list = ogList;
+  } else {
+    return_list = ogList.filter((item) => {
+      var isSelected = false;
+      filterList.forEach((category) => {
+        isSelected = isSelected || category.toUpperCase() === item[2];
+      });
+      return isSelected;
     });
-    return isSelected;
-  });
+  }
 
   // console.log(`return list = [`);
   // return_list.forEach(rets => console.log(rets));
