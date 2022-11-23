@@ -1,8 +1,7 @@
-import './ItemCard.css';
-import ashley from './ashley.png';
-import { useState } from 'react';
-import Modal from 'react-modal';
-import { createSale } from '../../Common/Services/SaleServices';
+import "./ItemCard.css";
+import { useState } from "react";
+import Modal from "react-modal";
+import { createSale } from "../../Common/Services/SaleServices";
 
 const ItemCard = ({ merch, index }) => {
   const [showSaleModal, setShowSaleModal] = useState(false);
@@ -11,22 +10,16 @@ const ItemCard = ({ merch, index }) => {
 
   const customStylesModal = {
     content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
     },
   };
 
-  const sendSale = (
-    prod_id,
-    size,
-    price,
-    quantity,
-    quantity_avail
-  ) => {
+  const sendSale = (prod_id, size, price, quantity, quantity_avail) => {
     if (quantity > quantity_avail) {
       alert(`We only have ${quantity_avail} in stock!`);
     } else {
@@ -70,20 +63,12 @@ const ItemCard = ({ merch, index }) => {
           />
           <button
             onClick={() =>
-              sendSale(
-                merch[0],
-                merch[1],
-                merch[3],
-                quantity,
-                merch[8]
-              )
+              sendSale(merch[0], merch[1], merch[3], quantity, merch[8])
             }
           >
             Confirm Sale
           </button>
-          <button onClick={() => setShowSaleModal(false)}>
-            Cancel
-          </button>
+          <button onClick={() => setShowSaleModal(false)}>Cancel</button>
         </div>
       </Modal>
       <Modal
@@ -106,12 +91,13 @@ const ItemCard = ({ merch, index }) => {
           <button onClick={() => setShowRestockModal(false)}>
             Confirm Restock
           </button>
-          <button onClick={() => setShowRestockModal(false)}>
-            Cancel
-          </button>
+          <button onClick={() => setShowRestockModal(false)}>Cancel</button>
         </div>
       </Modal>
-      <img src={`${process.env.REACT_APP_API_URL}/static/merchPics/${merch[0]}.png`} alt="merch_pic" />
+      <img
+        src={`${process.env.REACT_APP_API_URL}/static/merchPics/${merch[0]}.png`}
+        alt="merch_pic"
+      />
       <div className="merchCard-subcontainer">
         <div className="subcontainer-row">
           <p>
@@ -125,14 +111,12 @@ const ItemCard = ({ merch, index }) => {
         </div>
         <div className="subcontainer-row">
           <p>
-            Quantity: {merch[8]} Box: {merch[9]} Shelf: {merch[10]}{' '}
-            Location: {merch[11]}
+            Quantity: {merch[8]} Box: {merch[9]} Shelf: {merch[10]} Location:{" "}
+            {merch[11]}
           </p>
         </div>
         <div className="subcontainer-row">
-          <button onClick={() => setShowSaleModal(true)}>
-            Record Sale
-          </button>
+          <button onClick={() => setShowSaleModal(true)}>Record Sale</button>
           <button onClick={() => setShowRestockModal(true)}>
             Record Restock
           </button>

@@ -1,0 +1,24 @@
+.header-container {
+  height: 50px;
+  width: 95%;
+  border: 1px solid aqua;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 2.5%;
+}
+
+.header-container * {
+  margin: 10px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: none;
+  color: aqua;
+}
