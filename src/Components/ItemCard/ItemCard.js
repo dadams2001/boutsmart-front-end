@@ -111,9 +111,7 @@ const ItemCard = ({ merch, index }) => {
           </button>
         </div>
       </Modal>
-      <img id="ashley" src={ashley} alt="idk" />
-      {/* <img id="ashley" src={process.env.REACT_APP_API_URL + 'pics/' + merch[0]} alt="idk"/> 
-            {console.log(process.env.REACT_APP_API_URL + 'pics/' + merch[0])} */}
+      <img src={`${process.env.REACT_APP_API_URL}/static/merchPics/${merch[0]}.png`} alt="merch_pic" />
       <div className="merchCard-subcontainer">
         <div className="subcontainer-row">
           <p>
