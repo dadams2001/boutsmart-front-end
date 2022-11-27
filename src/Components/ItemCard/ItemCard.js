@@ -2,10 +2,12 @@ import "./ItemCard.css";
 import { useState } from "react";
 import Modal from "react-modal";
 import { createSale } from "../../Common/Services/SaleServices";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const ItemCard = ({ merch, index }) => {
   const [showSaleModal, setShowSaleModal] = useState(false);
   const [showRestockModal, setShowRestockModal] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState(false);
   const [quantity, setQuantity] = useState(0);
 
   const customStylesModal = {
@@ -15,6 +17,18 @@ const ItemCard = ({ merch, index }) => {
       right: "auto",
       bottom: "auto",
       marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+
+  const customStylesModalBuy = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      height: "70%",
       transform: "translate(-50%, -50%)",
     },
   };
@@ -49,7 +63,7 @@ const ItemCard = ({ merch, index }) => {
         isOpen={showSaleModal}
         contentLabel="Record Sale"
         style={customStylesModal}
-        onClickOutside={() => setShowSaleModal(false)}
+        onRequestClose={() => setShowSaleModal(false)}
       >
         <div className="modal-container">
           <h1>Add Sale</h1>
@@ -76,7 +90,7 @@ const ItemCard = ({ merch, index }) => {
         isOpen={showRestockModal}
         contentLabel="Record Restock"
         style={customStylesModal}
-        onClickOutside={() => setShowRestockModal(false)}
+        onRequestClose={() => setShowRestockModal(false)}
       >
         <div className="modal-container">
           <h1>Add Restock</h1>
@@ -92,6 +106,29 @@ const ItemCard = ({ merch, index }) => {
             Confirm Restock
           </button>
           <button onClick={() => setShowRestockModal(false)}>Cancel</button>
+        </div>
+      </Modal>
+      <Modal
+        // Buy Modal
+        isOpen={showBuyModal}
+        contentLabel="Buy Now"
+        style={customStylesModalBuy}
+        onRequestClose={() => setShowBuyModal(false)}
+      >
+        <div className="modal-container-buy">
+          <h1>Buy Now!</h1>
+          <p>
+            {merch[0]} {merch[4]} {merch[7]} {merch[1]}
+          </p>
+          <input
+            type="test"
+            placeholder="Quantity..."
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+          <PayPalScriptProvider>
+            <PayPalButtons />
+          </PayPalScriptProvider>
+          <button onClick={() => setShowBuyModal(false)}>Cancel</button>
         </div>
       </Modal>
       <img
@@ -120,6 +157,7 @@ const ItemCard = ({ merch, index }) => {
           <button onClick={() => setShowRestockModal(true)}>
             Record Restock
           </button>
+          <button onClick={() => setShowBuyModal(true)}>Buy Now!</button>
         </div>
       </div>
     </li>
