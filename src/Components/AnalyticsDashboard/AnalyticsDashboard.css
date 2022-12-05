@@ -10,7 +10,8 @@
 }
 
 .sub-container {
-  width: 60vw;
+  width: 70vw;
+  margin: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
