@@ -178,7 +178,7 @@ const data4 = [
 const AnalyticsDashboard = () => {
   return (
     <div className="dash-container">
-      <h1>Here's our analytics bro</h1>
+      <h1>Sales Analytics</h1>
       <Header />
       <div className="sub-container">
         <BarChart width={500} height={250} data={data} margin={{
