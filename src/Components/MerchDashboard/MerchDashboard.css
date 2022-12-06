@@ -1,5 +1,5 @@
 .dash-container {
-  border: 1px solid white;
+  border: 1px solid rgb(255, 255, 255);
   color: #fff;
   border-radius: 5px;
   display: flex;
@@ -7,6 +7,8 @@
   align-items: center;
   width: 80vw;
   margin: 25px 10vw;
+  background-image: linear-gradient(45deg, #e7e5bf, #4c754b);
+  font-family: "Times New Roman";
 }
 
 .sub-container {
@@ -17,10 +19,10 @@
 }
 
 #search-bar {
-  color: gold;
-  background: none;
+  color: rgb(255, 255, 255);
+  background: solid white;
   outline: none;
-  border: 2px solid white;
+  border: 5px solid white;
   border-radius: 20px;
   padding: 5px;
   padding-left: 15px;

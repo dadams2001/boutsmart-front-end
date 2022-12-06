@@ -81,7 +81,7 @@ const MerchDashboard = () => {
 
   return (
     <div className="dash-container">
-      <h1>Here's our merch bro</h1>
+      <h1>BoutsMart</h1>
       <Header />
       <div className="sub-container">
         <div className="container-row">
@@ -91,7 +91,7 @@ const MerchDashboard = () => {
                 {filterBoolList[index] === true ? (
                   <button
                     key={index}
-                    style={{ margin: "5px", backgroundColor: "aqua" }}
+                    style={{ margin: "5px", backgroundColor: "gold" , fontFamily: "Times New Roman"}}
                     onClick={() => filterItemsFunc(index, merchList)}
                   >
                     {name}
