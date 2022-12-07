@@ -1,5 +1,5 @@
 import "./ItemCard.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { createSale } from "../../Common/Services/SaleServices";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -9,6 +9,22 @@ const ItemCard = ({ merch, index }) => {
   const [showRestockModal, setShowRestockModal] = useState(false);
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  const [totalCost, setTotalCost] = useState("0.01");
+
+  // const updateQuantityandCost = (input) => {
+  //   var cost = input * merch[3];
+  //   cost = cost.toFixed(2);
+  //   cost = cost.toString();
+  //   setTotalCost(cost);
+  //   setQuantity(input);
+  // };
+
+  useEffect(()=>{
+    var cost = quantity * merch[3];
+    cost = cost.toFixed(2);
+    cost = cost.toString();
+    setTotalCost(cost);
+  },[quantity, merch]);
 
   const customStylesModal = {
     content: {
@@ -116,6 +132,7 @@ const ItemCard = ({ merch, index }) => {
         onRequestClose={() => setShowBuyModal(false)}
       >
         <div className="modal-container-buy">
+          {console.log(totalCost)} 
           <h1>Buy Now!</h1>
           <p>
             {merch[0]} {merch[4]} {merch[7]} {merch[1]}
@@ -125,8 +142,30 @@ const ItemCard = ({ merch, index }) => {
             placeholder="Quantity..."
             onChange={(e) => setQuantity(e.target.value)}
           />
-          <PayPalScriptProvider>
-            <PayPalButtons />
+          <PayPalScriptProvider
+            options={{
+              "client-id":process.env.REACT_APP_PAYPAL_ID
+            }}
+          >
+            <PayPalButtons
+                createOrder={(data, actions) => {
+                  return actions.order.create({
+                    purchase_units: [
+                      {
+                        amount: {
+                          value: "0.01",
+                        },
+                      },
+                    ],
+                  });
+                }}
+                onApprove={async (data, actions) => {
+                  const details = await actions.order.capture();
+                  const name = details.payer.name.given_name;
+                  alert("Transaction completed. Congratulations," + name + "!");
+                  setShowBuyModal(false);
+                }}
+            />
           </PayPalScriptProvider>
           <button onClick={() => setShowBuyModal(false)}>Cancel</button>
         </div>
