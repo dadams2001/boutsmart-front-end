@@ -91,7 +91,7 @@ const MerchDashboard = () => {
                 {filterBoolList[index] === true ? (
                   <button
                     key={index}
-                    style={{ margin: "5px", backgroundColor: "gold" , fontFamily: "Times New Roman"}}
+                    style={{ margin: "5px", backgroundColor: "#00843D" , color: "white", fontFamily: "Times New Roman"}}
                     onClick={() => filterItemsFunc(index, merchList)}
                   >
                     {name}
