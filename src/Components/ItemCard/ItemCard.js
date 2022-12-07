@@ -1,12 +1,30 @@
 import "./ItemCard.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { createSale } from "../../Common/Services/SaleServices";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const ItemCard = ({ merch, index }) => {
   const [showSaleModal, setShowSaleModal] = useState(false);
   const [showRestockModal, setShowRestockModal] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  const [totalCost, setTotalCost] = useState("0.01");
+
+  // const updateQuantityandCost = (input) => {
+  //   var cost = input * merch[3];
+  //   cost = cost.toFixed(2);
+  //   cost = cost.toString();
+  //   setTotalCost(cost);
+  //   setQuantity(input);
+  // };
+
+  useEffect(()=>{
+    var cost = quantity * merch[3];
+    cost = cost.toFixed(2);
+    cost = cost.toString();
+    setTotalCost(cost);
+  },[quantity, merch]);
 
   const customStylesModal = {
     content: {
@@ -15,6 +33,18 @@ const ItemCard = ({ merch, index }) => {
       right: "auto",
       bottom: "auto",
       marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+
+  const customStylesModalBuy = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      height: "70%",
       transform: "translate(-50%, -50%)",
     },
   };
@@ -49,7 +79,7 @@ const ItemCard = ({ merch, index }) => {
         isOpen={showSaleModal}
         contentLabel="Record Sale"
         style={customStylesModal}
-        onClickOutside={() => setShowSaleModal(false)}
+        onRequestClose={() => setShowSaleModal(false)}
       >
         <div className="modal-container">
           <h1>Add Sale</h1>
@@ -76,7 +106,7 @@ const ItemCard = ({ merch, index }) => {
         isOpen={showRestockModal}
         contentLabel="Record Restock"
         style={customStylesModal}
-        onClickOutside={() => setShowRestockModal(false)}
+        onRequestClose={() => setShowRestockModal(false)}
       >
         <div className="modal-container">
           <h1>Add Restock</h1>
@@ -92,6 +122,52 @@ const ItemCard = ({ merch, index }) => {
             Confirm Restock
           </button>
           <button onClick={() => setShowRestockModal(false)}>Cancel</button>
+        </div>
+      </Modal>
+      <Modal
+        // Buy Modal
+        isOpen={showBuyModal}
+        contentLabel="Buy Now"
+        style={customStylesModalBuy}
+        onRequestClose={() => setShowBuyModal(false)}
+      >
+        <div className="modal-container-buy">
+          {console.log(totalCost)} 
+          <h1>Buy Now!</h1>
+          <p>
+            {merch[0]} {merch[4]} {merch[7]} {merch[1]}
+          </p>
+          <input
+            type="test"
+            placeholder="Quantity..."
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+          <PayPalScriptProvider
+            options={{
+              "client-id":process.env.REACT_APP_PAYPAL_ID
+            }}
+          >
+            <PayPalButtons
+                createOrder={(data, actions) => {
+                  return actions.order.create({
+                    purchase_units: [
+                      {
+                        amount: {
+                          value: "0.01",
+                        },
+                      },
+                    ],
+                  });
+                }}
+                onApprove={async (data, actions) => {
+                  const details = await actions.order.capture();
+                  const name = details.payer.name.given_name;
+                  alert("Transaction completed. Congratulations," + name + "!");
+                  setShowBuyModal(false);
+                }}
+            />
+          </PayPalScriptProvider>
+          <button onClick={() => setShowBuyModal(false)}>Cancel</button>
         </div>
       </Modal>
       <img
@@ -120,6 +196,7 @@ const ItemCard = ({ merch, index }) => {
           <button onClick={() => setShowRestockModal(true)}>
             Record Restock
           </button>
+          <button onClick={() => setShowBuyModal(true)}>Buy Now!</button>
         </div>
       </div>
     </li>
