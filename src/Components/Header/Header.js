@@ -14,6 +14,11 @@ const Header = () => {
           View Analytics
         </Link>
       </button>
+      <button>
+        <Link className="link" to="/AddItem">
+          Add New Item 
+        </Link>
+      </button>
     </div>
   );
 };

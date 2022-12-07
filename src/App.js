@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import MerchDashboard from "./Components/MerchDashboard/MerchDashboard.js";
 import AnalyticsDashboard from "./Components/AnalyticsDashboard/AnalyticsDashboard";
+import NewItemCard from "./Components/AddNewItem/AddItem"; 
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route path="/">
               <Route index element={<MerchDashboard />} />
               <Route path="/Analytics" element={<AnalyticsDashboard />} />
+              <Route path="/AddItem" element={<NewItemCard />} /> 
             </Route>
             <Route
               path="*"
