@@ -1,7 +1,7 @@
 import "./AnalyticsDashboard.css";
 import Header from "../Header/Header";
-import React, { useCallback, useState, PureComponent } from 'react';
-import { BarChart, Bar, PieChart, Pie, Sector, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import React, { useCallback, useState } from 'react';
+import { BarChart, Bar, PieChart, Pie, Sector, Cell, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 const COLORS = ['#00843D', '#C99700', 'white', '#C99700','white','#C99700', 'white', '#C99700', '#00843D', '#C99700'];
 
@@ -694,20 +694,20 @@ const catpiedata4 = [
 ];
 
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, value }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+// const RADIAN = Math.PI / 180;
+// const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, value }) => {
+//   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+//   const x = cx + radius * Math.cos(-midAngle * RADIAN);
+//   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-  return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${value}%`}
-    </text>
-  );
-};
+//   return (
+//     <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+//       {`${value}%`}
+//     </text>
+//   );
+// };
 
-const renderActiveShape = (props: any) => {
+const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
   const {
     cx,
@@ -719,7 +719,6 @@ const renderActiveShape = (props: any) => {
     endAngle,
     fill,
     payload,
-    percent,
     value
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
@@ -851,7 +850,7 @@ const AnalyticsDashboard = () => {
                         bottom: 30,
                     }}>
           <text x={650 / 2} y={20} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Gender (All 3 Nights) </tspan>
+            <tspan fontSize="20">Revenue Divided By Gender (All 3 Nights) </tspan>
           </text>
           <CartesianGrid strokeDasharray="3 3" />
             {/* <XAxis dataKey="name" /> */}
@@ -896,7 +895,7 @@ const AnalyticsDashboard = () => {
         ))}
       </Pie>
       <text x={345} y={400} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Gender (All 3 Nights) </tspan>
+            <tspan fontSize="20">Revenue Divided By Gender (All 3 Nights) </tspan>
           </text>
       <text x={345} y={165} fill="white" textAnchor="middle" dominantBaseline="central">
           <tspan fontSize="20">GENDER: </tspan>
@@ -911,7 +910,7 @@ const AnalyticsDashboard = () => {
                         bottom: 30,
                     }}>
           <text x={650 / 2} y={20} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Category (All 3 Nights) </tspan>
+            <tspan fontSize="20">Revenue Divided By Category (All 3 Nights) </tspan>
           </text>
           <CartesianGrid strokeDasharray="3 3" />
             {/* <XAxis dataKey="name" /> */}
@@ -956,7 +955,7 @@ const AnalyticsDashboard = () => {
         ))}
       </Pie>
       <text x={345} y={400} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Category (All 3 Nights) </tspan>
+            <tspan fontSize="20">Revenue Divided By Category (All 3 Nights) </tspan>
           </text>
       <text x={345} y={165} fill="white" textAnchor="middle" dominantBaseline="central">
           <tspan fontSize="20">CATEGORY: </tspan>
@@ -1031,7 +1030,7 @@ const AnalyticsDashboard = () => {
                         bottom: 30,
                     }}>
           <text x={650 / 2} y={20} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Gender (Night 1) </tspan>
+            <tspan fontSize="20">Revenue Divided By Gender (Night 1) </tspan>
           </text>
           <CartesianGrid strokeDasharray="3 3" />
             {/* <XAxis dataKey="name" /> */}
@@ -1076,7 +1075,7 @@ const AnalyticsDashboard = () => {
         ))}
       </Pie>
       <text x={345} y={400} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Gender (Night 1) </tspan>
+            <tspan fontSize="20">Revenue Divided By Gender (Night 1) </tspan>
           </text>
       <text x={345} y={165} fill="white" textAnchor="middle" dominantBaseline="central">
           <tspan fontSize="20">GENDER: </tspan>
@@ -1091,7 +1090,7 @@ const AnalyticsDashboard = () => {
                         bottom: 30,
                     }}>
           <text x={650 / 2} y={20} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Category (Night 1) </tspan>
+            <tspan fontSize="20">Revenue Divided By Category (Night 1) </tspan>
           </text>
           <CartesianGrid strokeDasharray="3 3" />
             {/* <XAxis dataKey="name" /> */}
@@ -1136,7 +1135,7 @@ const AnalyticsDashboard = () => {
         ))}
       </Pie>
       <text x={345} y={400} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Category (Night 1) </tspan>
+            <tspan fontSize="20">Revenue Divided By Category (Night 1) </tspan>
           </text>
       <text x={345} y={165} fill="white" textAnchor="middle" dominantBaseline="central">
           <tspan fontSize="20">CATEGORY: </tspan>
@@ -1211,7 +1210,7 @@ const AnalyticsDashboard = () => {
                         bottom: 30,
                     }}>
           <text x={650 / 2} y={20} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Gender (Night 2) </tspan>
+            <tspan fontSize="20">Revenue Divided By Gender (Night 2) </tspan>
           </text>
           <CartesianGrid strokeDasharray="3 3" />
             {/* <XAxis dataKey="name" /> */}
@@ -1256,7 +1255,7 @@ const AnalyticsDashboard = () => {
         ))}
       </Pie>
       <text x={345} y={400} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Gender (Night 2) </tspan>
+            <tspan fontSize="20">Revenue Divided By Gender (Night 2) </tspan>
           </text>
       <text x={345} y={165} fill="white" textAnchor="middle" dominantBaseline="central">
           <tspan fontSize="20">GENDER: </tspan>
@@ -1271,7 +1270,7 @@ const AnalyticsDashboard = () => {
                         bottom: 30,
                     }}>
           <text x={650 / 2} y={20} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Category (Night 2) </tspan>
+            <tspan fontSize="20">Revenue Divided By Category (Night 2) </tspan>
           </text>
           <CartesianGrid strokeDasharray="3 3" />
             {/* <XAxis dataKey="name" /> */}
@@ -1316,7 +1315,7 @@ const AnalyticsDashboard = () => {
         ))}
       </Pie>
       <text x={345} y={400} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Category (Night 2) </tspan>
+            <tspan fontSize="20">Revenue Divided By Category (Night 2) </tspan>
           </text>
       <text x={345} y={165} fill="white" textAnchor="middle" dominantBaseline="central">
           <tspan fontSize="20">CATEGORY: </tspan>
@@ -1391,7 +1390,7 @@ const AnalyticsDashboard = () => {
                         bottom: 30,
                     }}>
           <text x={650 / 2} y={20} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Gender (Night 3) </tspan>
+            <tspan fontSize="20">Revenue Divided By Gender (Night 3) </tspan>
           </text>
           <CartesianGrid strokeDasharray="3 3" />
             {/* <XAxis dataKey="name" /> */}
@@ -1436,7 +1435,7 @@ const AnalyticsDashboard = () => {
         ))}
       </Pie>
       <text x={345} y={400} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Gender (Night 3) </tspan>
+            <tspan fontSize="20">Revenue Divided By Gender (Night 3) </tspan>
           </text>
       <text x={345} y={165} fill="white" textAnchor="middle" dominantBaseline="central">
           <tspan fontSize="20">GENDER: </tspan>
@@ -1451,7 +1450,7 @@ const AnalyticsDashboard = () => {
                         bottom: 30,
                     }}>
           <text x={650 / 2} y={20} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Category (Night 3) </tspan>
+            <tspan fontSize="20">Revenue Divided By Category (Night 3) </tspan>
           </text>
           <CartesianGrid strokeDasharray="3 3" />
             {/* <XAxis dataKey="name" /> */}
@@ -1496,7 +1495,7 @@ const AnalyticsDashboard = () => {
         ))}
       </Pie>
       <text x={345} y={400} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan fontSize="20">Profit Divided By Category (Night 3) </tspan>
+            <tspan fontSize="20">Revenue Divided By Category (Night 3) </tspan>
           </text>
       <text x={345} y={165} fill="white" textAnchor="middle" dominantBaseline="central">
           <tspan fontSize="20">CATEGORY: </tspan>
