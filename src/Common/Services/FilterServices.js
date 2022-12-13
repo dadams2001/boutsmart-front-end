@@ -29,3 +29,10 @@ export const filterList = (filterList, ogList) => {
 
   return return_list;
 };
+
+export const cleanData = (input_list) => {
+  input_list.map((obj) => {
+    return (obj.value = parseInt(obj.value));
+  });
+  return input_list;
+};
