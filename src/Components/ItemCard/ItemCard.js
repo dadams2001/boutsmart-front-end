@@ -10,21 +10,17 @@ const ItemCard = ({ merch, index }) => {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [totalCost, setTotalCost] = useState("0.01");
+  const [buyView, setBuyView] = useState(0);
 
-  // const updateQuantityandCost = (input) => {
-  //   var cost = input * merch[3];
-  //   cost = cost.toFixed(2);
-  //   cost = cost.toString();
-  //   setTotalCost(cost);
-  //   setQuantity(input);
-  // };
-
-  useEffect(()=>{
+  useEffect(() => {
+    if (quantity > merch[8]){
+      alert(`We only have ${merch[8]} in stock!`)
+    }
     var cost = quantity * merch[3];
     cost = cost.toFixed(2);
     cost = cost.toString();
     setTotalCost(cost);
-  },[quantity, merch]);
+  }, [quantity, merch]);
 
   const customStylesModal = {
     content: {
@@ -131,29 +127,35 @@ const ItemCard = ({ merch, index }) => {
         style={customStylesModalBuy}
         onRequestClose={() => setShowBuyModal(false)}
       >
-        <div className="modal-container-buy">
-          {console.log(totalCost)} 
-          <h1>Buy Now!</h1>
-          <p>
-            {merch[0]} {merch[4]} {merch[7]} {merch[1]}
-          </p>
-          <input
-            type="test"
-            placeholder="Quantity..."
-            onChange={(e) => setQuantity(e.target.value)}
-          />
-          <PayPalScriptProvider
-            options={{
-              "client-id":process.env.REACT_APP_PAYPAL_ID
-            }}
-          >
-            <PayPalButtons
+        {buyView === 0 ? (
+          <div className="modal-container-buy">
+            <h1>Buy Now!</h1>
+            <p>
+              {merch[0]} {merch[4]} {merch[7]} {merch[1]} ${merch[3]}
+            </p>
+            <input
+              type="test"
+              placeholder="Quantity..."
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+            <button onClick={() => setBuyView(1)}>Next</button>
+            <button onClick={() => setShowBuyModal(false)}>Cancel</button>
+          </div>
+        ) : (
+          <div className="modal-container-buy">
+            <h1>Buy Now!</h1>
+            <PayPalScriptProvider
+              options={{
+                "client-id": process.env.REACT_APP_PAYPAL_ID,
+              }}
+            >
+              <PayPalButtons
                 createOrder={(data, actions) => {
                   return actions.order.create({
                     purchase_units: [
                       {
                         amount: {
-                          value: "0.01",
+                          value: totalCost,
                         },
                       },
                     ],
@@ -162,13 +164,16 @@ const ItemCard = ({ merch, index }) => {
                 onApprove={async (data, actions) => {
                   const details = await actions.order.capture();
                   const name = details.payer.name.given_name;
+                  sendSale(merch[0], merch[1], merch[3], quantity, merch[8]);
                   alert("Transaction completed. Congratulations," + name + "!");
                   setShowBuyModal(false);
                 }}
-            />
-          </PayPalScriptProvider>
-          <button onClick={() => setShowBuyModal(false)}>Cancel</button>
-        </div>
+              />
+            </PayPalScriptProvider>
+            <button onClick={() => setBuyView(0)}>Prev</button>
+            <button onClick={() => setShowBuyModal(false)}>Cancel</button>
+          </div>
+        )}
       </Modal>
       <img
         src={`${process.env.REACT_APP_API_URL}/static/merchPics/${merch[0]}.png`}
