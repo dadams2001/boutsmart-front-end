@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import { AddItem } from "../../Common/Services/AddItemServices"
+import axios from "axios";
+import React,{Component} from "react"; 
+import Main from "../UploadImages/AddImage"
 
 const NewItemCard = () => {
 
@@ -40,6 +43,30 @@ const NewItemCard = () => {
     const sendAddItem = (prod_id, category, price, sub_cat, color, gender, XS_quantity, S_quantity, M_quantity, L_quantity, XL_quantity, XXL_quantity, XXXL_quantity, OS_quantity, box, shelf, location) => {
         AddItem(prod_id, category, price, sub_cat, color, gender, XS_quantity, S_quantity, M_quantity, L_quantity, XL_quantity, XXL_quantity, XXXL_quantity, OS_quantity, box, shelf, location);
     };
+
+    /* const state = {
+        // no file selected initially
+        selectedFile: null
+    };
+
+    const onFileChange = event => {
+        this.setState({ selectedFile: event.target.files[0] });
+    };
+    
+    const onFileUpload = () => {
+        const formData = new FormData();
+    
+        formData.append(
+            "newFile",
+            this.state.selectedFile,
+            this.state.selectedFile.name
+        );
+            
+        console.log(this.state.selectedFile);
+
+        axios.post("api/uploadfile", formData);
+    
+    }; */
 
     return (
         <li className="AddItemCard" >
@@ -268,6 +295,8 @@ const NewItemCard = () => {
                         onChange={(e) => setLocation(e.target.value)}
                     </select> <br/>
 
+                    <Main />
+
                     <button
                         onClick={() => {
                             // sendAddItem(prod_id, size, category, price, sub_cat, discontinued, color, gender, quantity, box, shelf, location)
@@ -281,9 +310,13 @@ const NewItemCard = () => {
                     <button onClick={() => {
                         navigate("/")
                     }}>Cancel</button> 
+                    <br/>
+
                 </div>
         </li>
     );
+
+
 };
 
 export default NewItemCard;
