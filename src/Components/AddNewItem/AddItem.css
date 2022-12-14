@@ -1,48 +1,35 @@
-.AddItemCard {
-    border: 1px solid #C99700;
-    font-size: 1rem;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 20px;
-    height: 200px;
-    margin: 15px 0;
-    background-color: #0C2340;
-  }
-  
-  .AddItemCard-subcontainer {
-    width: 60%;
-    margin-left: 40px;
-    display: flex;
-    flex-direction: column;
-    font-size: 0.75em;
-  }
-  
-  .subcontainer-row {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-  }
-  .subcontainer-row * {
-    display: flex;
-    flex-direction: row;
-    margin: 2px 5px;
-  }
-  .modal-container {
-    width: 60%;
-    margin: 0 20%;
-  }
-  
-  .modal-container * {
-    margin: 10px;
-  }
-  
-  input {
-    color: black;
-    background: none;
-    outline: none;
-    border: 2px solid black;
-    border-radius: 20px;
-    width: 100%;
-  }
+.dash-container {
+  border: 1px solid rgb(255, 255, 255);
+  color: #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80vw;
+  margin: 25px 10vw;
+  background-image: linear-gradient(45deg, #0c2340, #0c2340);
+  font-family: "Times New Roman";
+}
+
+.dash-container * {
+  color: #fff;
+}
+
+.sub-container {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+.container-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
