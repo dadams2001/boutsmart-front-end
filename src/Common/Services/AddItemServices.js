@@ -1,35 +1,40 @@
-export const AddItem = (prod_id, size, category, price, sub_cat, disc, color, gender, quantity, box, shelf, location) => {
-    // console.log(`prod_id: ${prod_id}, size: ${size}, price: ${price}, quantity: ${quantity}`);
-  
-    // POST request using fetch()
-    fetch(process.env.REACT_APP_API_URL + "add_item", {
-      // Adding method type
-      method: "POST",
-  
-      // Adding body or contents to send
-      body: JSON.stringify({
-        prod_id: prod_id,
-        size: size,
-        category: category,
-        price: price,
-        sub_cat: sub_cat,
-        disc: disc,
-        color: color,
-        gender: gender,
-        quantity: quantity,
-        box: box,
-        shelf: shelf,
-        location: location
-      }),
-  
-      // Adding headers to the request
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      // Converting to JSON
-      .then((response) => response.json())
-  
-      // Displaying results to console
-      .then((json) => console.log(json));
-  };
+
+export const AddItem = (newItem) => {
+  fetch(process.env.REACT_APP_API_URL + "AddItem", {
+    // Adding method type
+    method: "POST",
+
+    // Adding body or contents to send
+    body: JSON.stringify({
+      category: newItem.category,
+      price: newItem.price,
+      sub_cat: newItem.sub_cat,
+      color: newItem.color,
+      gender: newItem.gender,
+      XS_quantity: newItem.XS_quantity,
+      S_quantity: newItem.S_quantity,
+      M_quantity: newItem.M_quantity,
+      L_quantity: newItem.L_quantity,
+      XL_quantity: newItem.XL_quantity,
+      XXL_quantity: newItem.XXL_quantity,
+      XXXL_quantity: newItem.XXXL_quantity,
+      OS_quantity: newItem.OS_quantity,
+      box: newItem.box,
+      shelf: newItem.shelf,
+      location: newItem.location,
+    }),
+
+    // Adding headers to the request
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    // Converting to JSON
+    .then((response) => response.json())
+
+    // Displaying results to console
+    .then((json) => console.log(json))
+
+    // Tell user for success
+    .then(() => alert(`You have successfully added an item!!`));
+};
