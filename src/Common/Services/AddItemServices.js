@@ -1,5 +1,6 @@
+
 export const AddItem = (newItem) => {
-  fetch(process.env.REACT_APP_API_URL + "/AddItem", {
+  fetch(process.env.REACT_APP_API_URL + "AddItem", {
     // Adding method type
     method: "POST",
 
@@ -32,5 +33,8 @@ export const AddItem = (newItem) => {
     .then((response) => response.json())
 
     // Displaying results to console
-    .then((json) => console.log(json));
+    .then((json) => console.log(json))
+
+    // Tell user for success
+    .then(() => alert(`You have successfully added an item!!`));
 };

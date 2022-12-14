@@ -11,8 +11,11 @@
   font-family: "Times New Roman";
 }
 
-.dash-container * {
+.dash-container input {
   color: #fff;
+  border-radius: 3px;
+  margin-bottom: 40px;
+  border: 1px solid white;
 }
 
 .sub-container {

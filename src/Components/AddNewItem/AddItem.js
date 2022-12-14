@@ -2,16 +2,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AddItem } from "../../Common/Services/AddItemServices";
 import Header from "../Header/Header";
+import "./AddItem.css"
 
 const NewItemCard = () => {
   const navigate = useNavigate();
 
   const [newItem, setNewItem] = useState({
-    category: "",
+    category: "SPORTS BRAS",
     price: 0,
-    sub_cat: "",
-    color: "",
-    gender: "",
+    sub_cat: "SPORTS BRAS",
+    color: "BLACK",
+    gender: "MENS",
     XS_quantity: 0,
     S_quantity: 0,
     M_quantity: 0,
@@ -21,8 +22,8 @@ const NewItemCard = () => {
     XXXL_quantity: 0,
     OS_quantity: 0,
     box: 0,
-    shelf: "",
-    location: "",
+    shelf: "LEFT",
+    location: "PIT",
   });
 
   const onChangeHandler = (e) => {
@@ -39,6 +40,8 @@ const NewItemCard = () => {
 
   const onSubmitHandler = () => {
     console.log(newItem);
+    AddItem(newItem)
+    navigate('/');
   };
 
   return (
@@ -153,7 +156,7 @@ const NewItemCard = () => {
         </select>{" "}
         <br />
         <label for="gender">Select the gender: </label>
-        <select name="gender" id="gender">
+        <select name="gender" id="gender"  onChange={onChangeHandler}>
           <option value="MENS">MENS</option>
           <option value="WOMENS">WOMENS</option>
           <option value="YOUTH">YOUTH</option>
@@ -168,7 +171,7 @@ const NewItemCard = () => {
           name="box"
         />
         <label for="shelf">Select the shelf: </label>
-        <select name="shelf" id="shelf">
+        <select name="shelf" id="shelf"  onChange={onChangeHandler}>
           <option value="LEFT">LEFT</option>
           <option value="RIGHT">RIGHT</option>
           <option value="TOP">TOP</option>
